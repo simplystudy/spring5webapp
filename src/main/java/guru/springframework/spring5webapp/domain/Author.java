@@ -85,7 +85,7 @@ public class Author {
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", " + (firstName != null ? "firstName=" + firstName + ", " : "")
-				+ (lastName != null ? "lastName=" + lastName + ", " : "") + (books != null ? "books=" + books : "")
+				+ (lastName != null ? "lastName=" + lastName + ", " : "") 
 				+ "]";
 	}
 	

@@ -3,6 +3,7 @@ package guru.springframework.spring5webapp.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,19 +11,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 public class Book {
 	
 	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    private Long id;
-private String title;
-private String isbn;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+ 	private String title;
+ 	private String isbn;
 
 @ManyToMany
 @JoinTable(name="author_book" , joinColumns = @JoinColumn(name="book_id"), inverseJoinColumns = @JoinColumn(name="author_id"))
 private Set<Author> authors = new HashSet<Author>();
+
+@ManyToOne
+private Publisher publisher;
 
 public Book() {
 	
@@ -33,6 +40,14 @@ public Book(String t, String i) {
 	this.isbn = i;
 }
 
+
+public Publisher getPublisher() {
+	return publisher;
+}
+
+public void setPublisher(Publisher publisher) {
+	this.publisher = publisher;
+}
 
 public Long getId() {
 	return id;
@@ -88,7 +103,7 @@ public boolean equals(Object obj) {
 @Override
 public String toString() {
 	return "Book [id=" + id + ", " + (title != null ? "title=" + title + ", " : "")
-			+ (isbn != null ? "isbn=" + isbn + ", " : "") + (authors != null ? "authors=" + authors : "") + "]";
+			+ (isbn != null ? "isbn=" + isbn + ", " : "") + "]";
 }
 
 
